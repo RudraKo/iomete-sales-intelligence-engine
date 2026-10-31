@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IOMETE | The Living Sales Intelligence Engine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body class="min-h-screen bg-[#0a0e17] text-gray-100 flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
+
+  <!-- TOP NAVIGATION -->
+  <header class="border-b border-gray-800 bg-[#0d131f]/90 sticky top-0 z-50 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-black text-black text-lg shadow-lg shadow-cyan-500/20">
+          I
+        </div>
+        <div>
+          <span class="text-lg font-bold tracking-tight text-white">IOMETE</span>
+          <span class="text-xs ml-2 px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-400 border border-cyan-800/40 font-mono">
+            Living Sales Intelligence
+          </span>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-4 text-xs">
+        <div class="flex items-center space-x-2 bg-gray-900/90 border border-gray-800 px-3 py-1.5 rounded-full">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-gray-300">Zero-Hallucination Guard: <strong class="text-emerald-400">ENFORCED</strong></span>
+        </div>
+        <div class="hidden md:flex items-center space-x-2 bg-gray-900/90 border border-gray-800 px-3 py-1.5 rounded-full font-mono text-gray-400">
+          <span>Ledger Snippets:</span>
+          <span id="stat-total-snippets" class="text-cyan-400 font-bold">-</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUBHEADER PILLARS -->
+  <div class="bg-gradient-to-r from-blue-950/30 via-cyan-950/20 to-blue-950/30 border-b border-gray-800/60 py-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between text-xs text-gray-400 gap-2">
+      <div class="flex items-center space-x-2">
+        <span class="text-cyan-400 font-semibold">Core Grounding Pillars:</span>
+        <span>Sovereign VPC Deployment</span> • 
+        <span>Apache Spark Compute</span> • 
+        <span>Apache Iceberg Tables</span> • 
+        <span>Kubernetes Native</span>
+      </div>
+      <div class="text-gray-500">
+        Constraint: Unsupported claims strictly return <em class="text-yellow-400">"Unknown / Requires Engineering Verification"</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION TABS -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+    <nav class="flex space-x-6 border-b border-gray-800">
+      <button class="tab-btn pb-3 text-sm font-medium border-b-2 border-cyan-400 text-cyan-400 transition" data-target="tab-prep">
+        ⚡ 15-Min Call Prep
+      </button>
+      <button class="tab-btn pb-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-gray-200 transition" data-target="tab-objection">
+        🛡️ Objection Inversion
+      </button>
+      <button class="tab-btn pb-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-gray-200 transition" data-target="tab-memo">
+        📄 Proposal & Follow-up Memo
+      </button>
+      <button class="tab-btn pb-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-gray-200 transition" data-target="tab-ledger">
+        📚 The Living Ledger
+      </button>
+      <button class="tab-btn pb-3 text-sm font-medium border-b-2 border-transparent text-gray-400 hover:text-gray-200 transition" data-target="tab-audit">
+        🔍 Zero-Hallucination Audit
+      </button>
+    </nav>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+
+    <!-- TAB 1: 15-MINUTE CALL PREP -->
+    <div id="tab-prep" class="tab-panel grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Input Column -->
+      <div class="lg:col-span-5 space-y-5 bg-[#101726] p-6 rounded-2xl border border-gray-800">
+        <div class="flex items-center justify-between">
+          <h2 class="text-base font-semibold text-white flex items-center">
+            <span>Prospect Intel & Context</span>
+          </h2>
+          <!-- Preset Dropdown -->
+          <div class="flex space-x-1">
+            <span class="text-xs text-gray-400 mr-1 self-center">Presets:</span>
+            <button onclick="loadPrepPreset('snowflake')" class="text-xs px-2 py-1 bg-gray-800 hover:bg-gray-700 text-cyan-300 rounded">FinTech</button>
+            <button onclick="loadPrepPreset('emr')" class="text-xs px-2 py-1 bg-gray-800 hover:bg-gray-700 text-cyan-300 rounded">EMR</button>
+            <button onclick="loadPrepPreset('databricks')" class="text-xs px-2 py-1 bg-gray-800 hover:bg-gray-700 text-cyan-300 rounded">Retail</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Prospect Company Name</label>
+          <input id="prep-prospect" type="text" placeholder="e.g. Acme Financial" value="Apex FinTech Solutions" 
+            class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Industry</label>
+          <input id="prep-industry" type="text" placeholder="e.g. Healthcare, FinTech, E-Commerce" value="Financial Services & Payments" 
+            class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Current Incumbent Stack</label>
+          <input id="prep-stack" type="text" placeholder="e.g. Snowflake on AWS, Databricks on GCP, EMR Spark" value="Snowflake on AWS (500TB)" 
+            class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Key Customer Pain Points (1 per line)</label>
+          <textarea id="prep-painpoints" rows="3" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">High cloud compute credit multipliers ($85k/mo bill)
+Regulatory mandate requiring zero data egress outside VPC
+Fear of lock-in with proprietary micro-partitions</textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-2">Meeting Attendees (Personas)</label>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <label class="flex items-center space-x-2 bg-gray-900 p-2 rounded border border-gray-800 cursor-pointer">
+              <input type="checkbox" name="prep-personas" value="Chief Security Officer" checked class="text-cyan-500 rounded">
+              <span>CSO / CISO</span>
+            </label>
+            <label class="flex items-center space-x-2 bg-gray-900 p-2 rounded border border-gray-800 cursor-pointer">
+              <input type="checkbox" name="prep-personas" value="VP Data Engineering" checked class="text-cyan-500 rounded">
+              <span>VP of Data / Platform</span>
+            </label>
+            <label class="flex items-center space-x-2 bg-gray-900 p-2 rounded border border-gray-800 cursor-pointer">
+              <input type="checkbox" name="prep-personas" value="Head of BI / Analytics" checked class="text-cyan-500 rounded">
+              <span>Head of BI</span>
+            </label>
+            <label class="flex items-center space-x-2 bg-gray-900 p-2 rounded border border-gray-800 cursor-pointer">
+              <input type="checkbox" name="prep-personas" value="Chief Financial Officer" checked class="text-cyan-500 rounded">
+              <span>CFO / Finance VP</span>
+            </label>
+          </div>
+        </div>
+
+        <button id="btn-call-prep" onclick="generateCallPrep()" 
+          class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 font-semibold text-black rounded-xl text-sm transition shadow-lg shadow-cyan-500/20">
+          🚀 Generate Instant Battle Brief
+        </button>
+      </div>
+
+      <!-- Output Column -->
+      <div class="lg:col-span-7 bg-[#101726] p-6 rounded-2xl border border-gray-800 flex flex-col">
+        <!-- Empty State -->
+        <div id="call-prep-empty" class="flex-1 flex flex-col items-center justify-center text-center p-8 text-gray-500">
+          <div class="text-4xl mb-3">⚡</div>
+          <h3 class="text-base font-semibold text-gray-300">Ready for 15-Minute Call Synthesis</h3>
+          <p class="text-xs max-w-sm mt-1">Configure prospect details on the left and click generate to produce an executive battle brief verified against IOMETE's core facts.</p>
+        </div>
+
+        <!-- Rendered Brief -->
+        <div id="call-prep-output" class="hidden space-y-6">
+          <div class="flex items-start justify-between border-b border-gray-800 pb-4">
+            <div>
+              <h2 id="prep-out-title" class="text-lg font-bold text-white">Strategic Call Brief</h2>
+              <span class="text-xs text-gray-400">Strictly grounded in IOMETE Living Ledger</span>
+            </div>
+            <span id="prep-out-badge" class="badge-verified px-2.5 py-0.5 rounded-full text-xs font-semibold">
+              Verified Grounded
+            </span>
+          </div>
+
+          <!-- Architecture Fit -->
+          <div>
+            <h3 class="text-xs uppercase font-semibold text-cyan-400 tracking-wider mb-2">1. Architecture Fit & Incumbent Strategy</h3>
+            <p id="prep-out-fit" class="text-sm text-gray-200 bg-gray-900/80 p-3.5 rounded-xl border border-gray-800 leading-relaxed"></p>
+          </div>
+
+          <!-- Verified Value Drivers -->
+          <div>
+            <h3 class="text-xs uppercase font-semibold text-cyan-400 tracking-wider mb-2">2. Verified Value Drivers</h3>
+            <div id="prep-out-drivers" class="space-y-2"></div>
+          </div>
+
+          <!-- Targeted Discovery Questions -->
+          <div>
+            <h3 class="text-xs uppercase font-semibold text-cyan-400 tracking-wider mb-2">3. Role-Tailored Discovery Questions</h3>
+            <div id="prep-out-questions" class="space-y-3"></div>
+          </div>
+
+          <!-- Landmines -->
+          <div>
+            <h3 class="text-xs uppercase font-semibold text-red-400 tracking-wider mb-2">4. Strict Landmines (What NOT to Say)</h3>
+            <div id="prep-out-landmines" class="space-y-2"></div>
+          </div>
+
+          <!-- Citations -->
+          <div class="border-t border-gray-800 pt-4">
+            <h3 class="text-xs uppercase font-semibold text-gray-500 tracking-wider mb-2">Ground Truth Citations</h3>
+            <div id="prep-out-citations" class="flex flex-wrap"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: OBJECTION INVERSION -->
+    <div id="tab-objection" class="tab-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Input Column -->
+      <div class="lg:col-span-5 space-y-5 bg-[#101726] p-6 rounded-2xl border border-gray-800">
+        <div class="flex items-center justify-between">
+          <h2 class="text-base font-semibold text-white">Objection Inversion Engine</h2>
+          <div class="flex space-x-1">
+            <span class="text-xs text-gray-400 mr-1 self-center">Presets:</span>
+            <button onclick="loadObjectionPreset('lockin')" class="text-xs px-2 py-1 bg-gray-800 hover:bg-gray-700 text-cyan-300 rounded">Lock-in</button>
+            <button onclick="loadObjectionPreset('diy')" class="text-xs px-2 py-1 bg-gray-800 hover:bg-gray-700 text-cyan-300 rounded">DIY</button>
+            <button onclick="loadObjectionPreset('sovereignty')" class="text-xs px-2 py-1 bg-gray-800 hover:bg-gray-700 text-cyan-300 rounded">Security</button>
+            <button onclick="loadObjectionPreset('hallucination_trap')" class="text-xs px-2 py-1 bg-red-950/60 hover:bg-red-900 text-red-300 rounded">Trap Test</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Competitor / Context</label>
+          <select id="obj-competitor" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+            <option value="Snowflake">Snowflake</option>
+            <option value="Databricks">Databricks</option>
+            <option value="DIY Open Source">DIY Open Source on K8s</option>
+            <option value="General">General / Other</option>
+            <option value="None">None / Unsupported Domain</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Customer Objection</label>
+          <textarea id="obj-input" rows="4" placeholder="Enter customer objection..." class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">We are already deeply committed to Snowflake; migrating away is too risky and locked in.</textarea>
+        </div>
+
+        <button id="btn-invert" onclick="invertObjection()" 
+          class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 font-semibold text-black rounded-xl text-sm transition shadow-lg shadow-cyan-500/20">
+          🛡️ Invert Objection
+        </button>
+      </div>
+
+      <!-- Output Column -->
+      <div class="lg:col-span-7 bg-[#101726] p-6 rounded-2xl border border-gray-800 flex flex-col">
+        <div id="obj-empty" class="flex-1 flex flex-col items-center justify-center text-center p-8 text-gray-500">
+          <div class="text-4xl mb-3">🛡️</div>
+          <h3 class="text-base font-semibold text-gray-300">Awaiting Objection</h3>
+          <p class="text-xs max-w-sm mt-1">Select an objection preset or enter an objection to generate an architectural inversion.</p>
+        </div>
+
+        <div id="obj-output" class="hidden space-y-5">
+          <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+            <h3 class="text-base font-semibold text-white">4-Step Inversion Framework</h3>
+            <span id="obj-out-badge" class="badge-verified px-2.5 py-0.5 rounded-full text-xs font-semibold">Verified</span>
+          </div>
+
+          <!-- Step 1: Acknowledgment -->
+          <div class="bg-gray-900/60 p-3.5 rounded-xl border border-gray-800">
+            <span class="text-xs font-semibold text-cyan-400 uppercase tracking-wider block mb-1">Step 1: Empathetic Acknowledgment</span>
+            <p id="obj-out-ack" class="text-sm text-gray-300"></p>
+          </div>
+
+          <!-- Step 2: Inversion Thesis -->
+          <div class="bg-cyan-950/20 p-3.5 rounded-xl border border-cyan-900/50">
+            <span class="text-xs font-semibold text-cyan-400 uppercase tracking-wider block mb-1">Step 2: Inversion Thesis</span>
+            <p id="obj-out-thesis" class="text-sm text-white font-medium"></p>
+          </div>
+
+          <!-- Step 3: Verified Technical Grounding -->
+          <div class="bg-gray-900/60 p-3.5 rounded-xl border border-gray-800">
+            <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider block mb-1">Step 3: Verified Technical Grounding</span>
+            <p id="obj-out-grounding" class="text-sm text-gray-300 leading-relaxed"></p>
+          </div>
+
+          <!-- Step 4: Battle-Tested Talk Track -->
+          <div class="bg-blue-950/30 p-3.5 rounded-xl border border-blue-900/50">
+            <span class="text-xs font-semibold text-blue-300 uppercase tracking-wider block mb-1">Step 4: Battle-Tested Rep Talk Track</span>
+            <p id="obj-out-talktrack" class="text-sm text-cyan-100 italic leading-relaxed"></p>
+          </div>
+
+          <!-- Citations -->
+          <div class="border-t border-gray-800 pt-3">
+            <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-2">Ground Truth Citations</span>
+            <div id="obj-out-citations"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: PROPOSAL MEMO GENERATOR -->
+    <div id="tab-memo" class="tab-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Input Column -->
+      <div class="lg:col-span-5 space-y-4 bg-[#101726] p-6 rounded-2xl border border-gray-800">
+        <h2 class="text-base font-semibold text-white">Proposal & Executive Memo Input</h2>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Prospect Company</label>
+          <input id="memo-prospect" type="text" value="Acme Global Logistics" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-gray-400 mb-1">Executive Sponsor</label>
+            <input id="memo-sponsor" type="text" value="Sarah Jenkins" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-400 mb-1">Sponsor Title</label>
+            <input id="memo-title" type="text" value="VP of Enterprise Architecture" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Incumbent Stack</label>
+          <input id="memo-stack" type="text" value="Snowflake Enterprise on AWS" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Primary Initiatives (1 per line)</label>
+          <textarea id="memo-initiatives" rows="2" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">Reduce Snowflake warehouse costs by 70%
+Enforce strict data residency in private AWS VPC
+Standardize analytical data on Apache Iceberg</textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Discovery Notes / Context</label>
+          <textarea id="memo-notes" rows="3" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">Currently running 8 Tableau reporting dashboards querying 250TB data.
+Monthly compute spend is $75k.
+Security team has flagged third-party data egress as a top audit priority for Q4.</textarea>
+        </div>
+
+        <button id="btn-memo" onclick="generateProposalMemo()" 
+          class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 font-semibold text-black rounded-xl text-sm transition shadow-lg shadow-cyan-500/20">
+          📄 Generate Executive Memo
+        </button>
+      </div>
+
+      <!-- Output Column -->
+      <div class="lg:col-span-7 bg-[#101726] p-6 rounded-2xl border border-gray-800 flex flex-col">
+        <div id="memo-empty" class="flex-1 flex flex-col items-center justify-center text-center p-8 text-gray-500">
+          <div class="text-4xl mb-3">📄</div>
+          <h3 class="text-base font-semibold text-gray-300">Proposal Ready for Generation</h3>
+          <p class="text-xs max-w-sm mt-1">Provide discovery notes on the left to produce a formal architecture proposal and TCO model.</p>
+        </div>
+
+        <div id="memo-output" class="hidden space-y-5">
+          <div class="border-b border-gray-800 pb-3">
+            <h2 id="memo-out-header" class="text-lg font-bold text-white">Executive Architecture Proposal</h2>
+            <p id="memo-out-sponsor" class="text-xs text-cyan-400 font-mono mt-0.5"></p>
+          </div>
+
+          <!-- Exec Summary -->
+          <div>
+            <h4 class="text-xs font-semibold text-cyan-400 uppercase tracking-wider mb-1">Executive Summary</h4>
+            <p id="memo-out-summary" class="text-sm text-gray-200 bg-gray-900/60 p-3 rounded-lg border border-gray-800 leading-relaxed"></p>
+          </div>
+
+          <!-- Problem Statement -->
+          <div>
+            <h4 class="text-xs font-semibold text-cyan-400 uppercase tracking-wider mb-1">Problem & Incumbent Friction</h4>
+            <p id="memo-out-problem" class="text-sm text-gray-300 bg-gray-900/60 p-3 rounded-lg border border-gray-800 leading-relaxed"></p>
+          </div>
+
+          <!-- Proposed Architecture -->
+          <div>
+            <h4 class="text-xs font-semibold text-cyan-400 uppercase tracking-wider mb-1">Proposed Architecture</h4>
+            <p id="memo-out-arch" class="text-sm text-gray-300 bg-gray-900/60 p-3 rounded-lg border border-gray-800 pre-wrap-custom font-mono text-xs leading-relaxed"></p>
+          </div>
+
+          <!-- TCO Matrix -->
+          <div>
+            <h4 class="text-xs font-semibold text-cyan-400 uppercase tracking-wider mb-1">Verified TCO Analysis Matrix</h4>
+            <div class="overflow-x-auto bg-gray-900/80 rounded-lg border border-gray-800 p-3">
+              <table class="w-full text-xs">
+                <tbody id="memo-out-tco"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Migration Path -->
+          <div>
+            <h4 class="text-xs font-semibold text-cyan-400 uppercase tracking-wider mb-1">Zero-Copy Migration Path</h4>
+            <p id="memo-out-migration" class="text-sm text-gray-300 bg-gray-900/60 p-3 rounded-lg border border-gray-800 pre-wrap-custom"></p>
+          </div>
+
+          <!-- POC Plan -->
+          <div>
+            <h4 class="text-xs font-semibold text-cyan-400 uppercase tracking-wider mb-1">4-Week POC Deployment Plan</h4>
+            <ul id="memo-out-poc" class="space-y-1.5 bg-gray-900/60 p-3 rounded-lg border border-gray-800"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: THE LIVING LEDGER -->
+    <div id="tab-ledger" class="tab-panel hidden space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-4 bg-[#101726] p-4 rounded-xl border border-gray-800">
+        <div class="flex items-center space-x-3">
+          <input id="ledger-search" type="text" placeholder="Search verified snippets, specs, playbooks..." 
+            oninput="loadSnippets('', this.value)"
+            class="bg-gray-900 border border-gray-700 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-cyan-400 w-72">
+          
+          <select id="ledger-cat-filter" onchange="loadSnippets(this.value, document.getElementById('ledger-search').value)"
+            class="bg-gray-900 border border-gray-700 rounded-lg px-3 py-1.5 text-sm text-white focus:outline-none focus:border-cyan-400">
+            <option value="">All Categories</option>
+            <option value="architecture">Architecture</option>
+            <option value="compute_storage">Compute & Storage</option>
+            <option value="tco_pricing">TCO & Pricing</option>
+            <option value="competitor_comparison">Competitors</option>
+            <option value="security">Security & Governance</option>
+            <option value="winning_call">Winning Call Playbooks</option>
+          </select>
+        </div>
+
+        <button onclick="document.getElementById('ingest-modal').classList.toggle('hidden')" 
+          class="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold rounded-lg text-sm transition">
+          ➕ Ingest New Fact / Playbook
+        </button>
+      </div>
+
+      <!-- Ingestion Modal / Box -->
+      <div id="ingest-modal" class="hidden bg-[#101726] p-6 rounded-2xl border border-cyan-800/40 space-y-4">
+        <h3 class="text-base font-semibold text-cyan-400">Ingest Knowledge into Living Ledger</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-gray-400 mb-1">Snippet Title</label>
+            <input id="new-snip-title" type="text" placeholder="e.g. Apache Iceberg v2 Delete Vector Support" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-400 mb-1">Category</label>
+            <select id="new-snip-cat" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white">
+              <option value="architecture">Architecture</option>
+              <option value="compute_storage">Compute & Storage</option>
+              <option value="tco_pricing">TCO & Pricing</option>
+              <option value="competitor_comparison">Competitor Comparison</option>
+              <option value="security">Security & Governance</option>
+              <option value="winning_call">Winning Call Resolution</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Verified Content</label>
+          <textarea id="new-snip-content" rows="3" placeholder="Exact verified facts from engineering or deal notes..." class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white"></textarea>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-gray-400 mb-1">Tags (comma separated)</label>
+            <input id="new-snip-tags" type="text" placeholder="iceberg, performance, spark" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-400 mb-1">Source / Doc Reference</label>
+            <input id="new-snip-source" type="text" placeholder="IOMETE Docs [storage#iceberg-v2]" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white">
+          </div>
+        </div>
+        <div class="flex justify-end space-x-3">
+          <button onclick="document.getElementById('ingest-modal').classList.add('hidden')" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm">Cancel</button>
+          <button onclick="ingestSnippet()" class="px-5 py-2 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold rounded-lg text-sm">Save & Index into Ledger</button>
+        </div>
+      </div>
+
+      <!-- Snippets Cards Grid -->
+      <div id="ledger-snippets-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- TAB 5: ZERO-HALLUCINATION AUDIT -->
+    <div id="tab-audit" class="tab-panel hidden max-w-3xl mx-auto space-y-6">
+      <div class="bg-[#101726] p-6 rounded-2xl border border-gray-800 space-y-4">
+        <h2 class="text-base font-semibold text-white flex items-center space-x-2">
+          <span>🔍 Zero-Hallucination Audit Sandbox</span>
+        </h2>
+        <p class="text-xs text-gray-400">
+          Test any sales statement, claim, or customer question. The verification engine scans the Living Ledger and checks grounding against IOMETE's core pillars. If a claim lacks proof or references unsupported domains, it triggers strict verification failure.
+        </p>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-400 mb-1">Sales Claim / Question to Audit</label>
+          <textarea id="audit-input" rows="3" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-400">IOMETE's data plane runs 100% inside customer VPC on Kubernetes, so customer data never leaves their cloud boundary.</textarea>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="flex space-x-2">
+            <button onclick="document.getElementById('audit-input').value = 'IOMETE guarantees customer data remains inside their private AWS VPC using Kubernetes and Apache Iceberg.'; runAudit();" 
+              class="text-xs px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-emerald-400 rounded">
+              Test Valid Claim
+            </button>
+            <button onclick="document.getElementById('audit-input').value = 'Does IOMETE run on Windows 95 and store customer credit card records on its own public servers?'; runAudit();" 
+              class="text-xs px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-red-400 rounded">
+              Test Unsupported Claim
+            </button>
+          </div>
+          <button onclick="runAudit()" class="px-5 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-semibold rounded-lg text-sm">
+            Run Grounding Audit
+          </button>
+        </div>
+
+        <div id="audit-output" class="pt-2"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-gray-800 py-4 bg-[#0a0e17] text-center text-xs text-gray-600">
+    The Living Sales Intelligence Engine • Built for hackCBS IOMETE Track • Sovereign Lakehouse (Spark + Iceberg + K8s)
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
+
