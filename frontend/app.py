@@ -69,7 +69,7 @@ def get_system_health() -> Dict[str, Any]:
 def render_sidebar():
     """Renders sidebar controls, credentials, and health telemetry."""
     with st.sidebar:
-        st.markdown("### ⚙️ Engine Configuration")
+        st.markdown("### Engine Configuration")
 
         # Session state key persistence
         if "groq_api_key" not in st.session_state:
@@ -104,24 +104,24 @@ def render_sidebar():
         st.session_state["temperature"] = temperature
 
         st.markdown("---")
-        st.markdown("### 📊 System Status")
+        st.markdown("### System Status")
 
         health = get_system_health()
         if health["status"] == "Active":
-            st.success(f"🟢 Knowledge Base: Active ({health['total_chunks']} chunks)")
-            with st.expander("📚 Knowledge Base Distribution"):
+            st.success(f"Knowledge Base: Active ({health['total_chunks']} chunks)")
+            with st.expander("Knowledge Base Distribution"):
                 for cat, count in health["categories"].items():
                     st.write(f"- **{cat}**: {count} chunks")
         else:
-            st.error(f"🔴 Knowledge Base: {health['status']}")
+            st.error(f"Knowledge Base: {health['status']}")
             if health["error"]:
                 st.caption(health["error"])
 
-        st.info("🛡️ Zero-Hallucination Guard: **ENFORCED**")
+        st.info("Zero-Hallucination Guard: **ENFORCED**")
         st.caption("Unsupported claims strictly return 'Unknown / Requires Engineering Verification'.")
 
         st.markdown("---")
-        st.markdown("### 🏛️ Core Grounding Pillars")
+        st.markdown("### Core Grounding Pillars")
         st.markdown(
             "- **Sovereign VPC**: Data plane stays inside customer perimeter\n"
             "- **Apache Spark**: Autoscaling, AQE & columnar reader\n"
@@ -138,7 +138,7 @@ def render_response_cards(result: Dict[str, Any]):
     sources = result.get("sources", [])
 
     st.markdown("---")
-    st.markdown("### 📋 Executive Response & Inversion Brief")
+    st.markdown("### Executive Response & Inversion Brief")
 
     # Status Badge
     if status == "Verified":
@@ -146,7 +146,7 @@ def render_response_cards(result: Dict[str, Any]):
             """<div style="display: inline-block; padding: 4px 12px; border-radius: 9999px; 
             background-color: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid #10b981; 
             font-weight: 600; font-size: 0.85rem; margin-bottom: 12px;">
-            ✅ STATUS: VERIFIED GROUNDED
+            STATUS: VERIFIED GROUNDED
             </div>""",
             unsafe_allow_html=True
         )
@@ -155,7 +155,7 @@ def render_response_cards(result: Dict[str, Any]):
             """<div style="display: inline-block; padding: 4px 12px; border-radius: 9999px; 
             background-color: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid #ef4444; 
             font-weight: 600; font-size: 0.85rem; margin-bottom: 12px;">
-            ⚠️ STATUS: UNVERIFIED / UNKNOWN (FALLBACK APPLIED)
+            STATUS: UNVERIFIED / UNKNOWN (FALLBACK APPLIED)
             </div>""",
             unsafe_allow_html=True
         )
@@ -197,7 +197,6 @@ def main():
     """Main Streamlit application entry point."""
     st.set_page_config(
         page_title="IOMETE | The Living Sales Intelligence Engine",
-        page_icon="⚡",
         layout="wide",
         initial_sidebar_state="expanded"
     )
@@ -209,7 +208,7 @@ def main():
     st.markdown(
         """<div style="margin-bottom: 16px;">
             <h1 style="margin: 0; padding: 0; font-size: 2.2rem; font-weight: 800; color: #00d2ff;">
-                ⚡ IOMETE Living Sales Intelligence Engine
+                IOMETE Living Sales Intelligence Engine
             </h1>
             <p style="color: #9ca3af; font-size: 1rem; margin-top: 4px;">
                 Instant, Verified Objection Inversion & Call Prep for the Sovereign Data Lakehouse
@@ -220,8 +219,8 @@ def main():
 
     # Navigation Tabs for Sales Workflows
     tab_copilot, tab_proposal = st.tabs([
-        "⚡ Objection Inversion Copilot",
-        "📝 Executive Proposal & Deal Memo Generator"
+        "Objection Inversion Copilot",
+        "Executive Proposal & Deal Memo Generator"
     ])
 
     # -------------------------------------------------------------
@@ -233,7 +232,7 @@ def main():
             st.session_state["current_objection"] = PRESET_OBJECTIONS["Vendor Lock-in"]
 
         # 1-Click Preset Buttons Row
-        st.markdown("##### 🚀 Quick-Select Common Objections:")
+        st.markdown("##### Quick-Select Common Objections:")
         pill_cols = st.columns(len(PRESET_OBJECTIONS))
         for idx, (label, text) in enumerate(PRESET_OBJECTIONS.items()):
             with pill_cols[idx]:
@@ -251,7 +250,7 @@ def main():
 
         col1, col2 = st.columns([1, 5])
         with col1:
-            submit_btn = st.button("🛡️ Invert Objection", type="primary", use_container_width=True)
+            submit_btn = st.button("Invert Objection", type="primary", use_container_width=True)
 
         if submit_btn:
             if not query_input or not query_input.strip():
@@ -274,7 +273,7 @@ def main():
     # TAB 2: EXECUTIVE PROPOSAL & DEAL MEMO GENERATOR
     # -------------------------------------------------------------
     with tab_proposal:
-        st.markdown("### 📝 C-Level Executive Briefing & Architecture Memo")
+        st.markdown("### C-Level Executive Briefing & Architecture Memo")
         st.caption("Generate a tailored, enterprise-ready proposal memo compiling objection inversions and deal-risk mitigations.")
 
         p_col1, p_col2 = st.columns(2)
@@ -291,7 +290,7 @@ def main():
                 help="Industry sector (enables regulatory and compliance risk mapping)."
             )
 
-        st.markdown("##### 📌 Select Key Objections & Topics Discussed on Call:")
+        st.markdown("##### Select Key Objections & Topics Discussed on Call:")
         obj_options = [
             "Vendor Lock-in (Snowflake / AWS proprietary formats)",
             "Security & Strict Data Egress / Air-Gapped VPC",
@@ -307,7 +306,7 @@ def main():
                 if st.checkbox(opt, value=True if i < 3 else False, key=f"memo_chk_{i}"):
                     selected_objs.append(opt)
 
-        if st.button("📄 Generate C-Level Proposal Memo", type="primary", use_container_width=True):
+        if st.button("Generate C-Level Proposal Memo", type="primary", use_container_width=True):
             with st.spinner("Compiling executive proposal & evaluating deal risks..."):
                 client = None
                 api_key = st.session_state.get("groq_api_key")
@@ -325,10 +324,10 @@ def main():
                     client=client
                 )
 
-                st.success("✅ Executive Proposal Memo Generated Successfully!")
+                st.success("Executive Proposal Memo Generated Successfully!")
 
                 # Deal Risk Assessment Preview
-                st.markdown("#### 🚨 Deal Risk Assessor (Identified Threats & Mitigations)")
+                st.markdown("#### Deal Risk Assessor (Identified Threats & Mitigations)")
                 for risk in proposal_data["risk_assessment"]:
                     severity_color = "#ef4444" if risk["severity"] == "HIGH" else "#f59e0b"
                     st.markdown(
@@ -345,11 +344,11 @@ def main():
                     )
 
                 # 1-Click Copy Code Block
-                st.markdown("#### 📋 Copyable C-Level Memo Markdown")
+                st.markdown("#### Copyable C-Level Memo Markdown")
                 st.code(proposal_data["proposal_markdown"], language="markdown")
 
                 # Markdown Preview in Expander
-                with st.expander("📖 Rendered Executive Document Preview", expanded=True):
+                with st.expander("Rendered Executive Document Preview", expanded=True):
                     st.markdown(proposal_data["proposal_markdown"])
 
 

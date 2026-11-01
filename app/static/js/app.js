@@ -49,7 +49,7 @@ async function generateCallPrep() {
   const painPoints = painPointsRaw.split('\n').filter(p => p.trim().length > 0);
 
   btn.disabled = true;
-  btn.innerHTML = `<span class="animate-spin inline-block mr-2">🔄</span> Synthesizing Brief...`;
+  btn.innerHTML = `Synthesizing Brief...`;
 
   try {
     const res = await fetch('/api/sales/call-prep', {
@@ -108,7 +108,7 @@ function renderCallPrep(data) {
   const lmContainer = document.getElementById('prep-out-landmines');
   lmContainer.innerHTML = data.strict_landmines.map(lm => `
     <div class="flex items-start space-x-2 text-sm text-red-200 bg-red-950/30 p-2.5 rounded-lg border border-red-900/50">
-      <span class="text-red-400 font-bold mt-0.5">⚠️</span>
+      <span class="text-red-400 font-bold mt-0.5">•</span>
       <span>${lm}</span>
     </div>
   `).join('');
@@ -145,7 +145,7 @@ async function invertObjection() {
   }
 
   btn.disabled = true;
-  btn.innerHTML = `<span class="animate-spin inline-block mr-2">🔄</span> Analyzing Inversion...`;
+  btn.innerHTML = `Analyzing Inversion...`;
 
   try {
     const res = await fetch('/api/sales/objection-inversion', {
@@ -166,7 +166,7 @@ async function invertObjection() {
     alert('Error: ' + err.message);
   } finally {
     btn.disabled = false;
-    btn.innerHTML = `🛡️ Invert Objection`;
+    btn.innerHTML = `Invert Objection`;
   }
 }
 
@@ -217,7 +217,7 @@ async function generateProposalMemo() {
   const initiatives = initiativesRaw.split('\n').filter(i => i.trim().length > 0);
 
   btn.disabled = true;
-  btn.innerHTML = `<span class="animate-spin inline-block mr-2">🔄</span> Generating Executive Memo...`;
+  btn.innerHTML = `Generating Executive Memo...`;
 
   try {
     const res = await fetch('/api/sales/proposal-memo', {
@@ -392,7 +392,7 @@ async function runAudit() {
         </div>
         <div class="space-y-2 text-sm">
           ${data.supported_claims.map(c => `<div class="text-emerald-300">✔ ${c}</div>`).join('')}
-          ${data.unsupported_claims.map(c => `<div class="text-red-300">❌ ${c}</div>`).join('')}
+          ${data.unsupported_claims.map(c => `<div class="text-red-300">• ${c}</div>`).join('')}
         </div>
       </div>
     `;
