@@ -64,8 +64,9 @@ async def get_dashboard(request: Request):
     """Renders the executive sales intelligence dashboard."""
     stats = ledger.get_stats()
     return templates.TemplateResponse(
-        "index.html", 
-        {"request": request, "stats": stats}
+        request=request,
+        name="index.html",
+        context={"stats": stats}
     )
 
 
