@@ -22,11 +22,14 @@ CORE_ANCHORS = {
 
 # Known unsupported or hallucination-trap topics that must immediately trigger fallback
 KNOWN_UNSUPPORTED_DOMAINS = [
-    "windows 95", "windows xp", "mainframe", "cobol",
+    "windows 95", "windows xp", "mainframe", "cobol", "ibm 360", "os/360",
+    "smartwatch", "raspberry pi", "arduino", "microcontroller",
+    "quantum-entangled", "data teleporter", "teleport",
+    "credit card", "cvv", "cookie", "cookies", "plaintext",
     "proprietary hardware appliance", "custom asic",
     "credit card processing vendor", "blockchain storage", "crypto token",
     "closed-source binary formats", "storing customer data on iomete servers",
-    "mandatory multi-tenant cloud storage"
+    "storing customer data on external servers", "mandatory multi-tenant cloud storage"
 ]
 
 

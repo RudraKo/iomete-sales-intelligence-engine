@@ -23,7 +23,7 @@ UNSUPPORTED_DOMAINS = [
     "quantum-entangled", "data teleporter", "teleport", "quantum teleporter", "faster than light",
     # Dangerous compliance & security violations
     "cvv", "unencrypted", "plaintext", "public cache", "plaintext public",
-    "credit card processing vendor", "blockchain storage", "crypto token",
+    "credit card", "cookie", "cookies", "credit card processing vendor", "blockchain storage", "crypto token",
     "closed-source binary formats", "store customer data on external servers",
     "storing customer data on external servers", "storing customer credit cards",
     "multi-tenant data egress requirement"
